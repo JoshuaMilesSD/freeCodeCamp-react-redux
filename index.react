@@ -1,34 +1,31 @@
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
+const ADD_TO_DO = 'ADD_TO_DO';
 
-const counterReducer = (state = 0, action) => {
+// A list of strings representing tasks to do:
+const todos = [
+  'Go to the store',
+  'Clean the house',
+  'Cook dinner',
+  'Learn to code',
+];
+
+const immutableReducer = (state = todos, action) => {
   switch(action.type) {
-    case INCREMENT:
-      return state + 1;
-    case DECREMENT:
-      return state - 1;
+    case ADD_TO_DO:
+      // Don't mutate state here or the tests will fail
+      return state.concat(action.todo);
     default:
       return state;
   }
 };
 
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
-
-const authReducer = (state = {authenticated: false}, action) => {
-  switch(action.type) {
-    case LOGIN:
-      return {
-        authenticated: true
-      }
-    case LOGOUT:
-      return {
-        authenticated: false
-      }
-    default:
-      return state;
+const addToDo = (todo) => {
+  return {
+    type: ADD_TO_DO,
+    todo
   }
-};
+}
+
+const store = Redux.createStore(immutableReducer);
 
 const rootReducer = // Define the root reducer here
 
